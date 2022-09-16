@@ -1,0 +1,17 @@
+---
+layout: post
+title:  "Week 2: More Drums and Rhythms"
+date:   2022-09-16 18:46:10 -0400
+categories: class update
+comments: false
+---
+
+
+```haskell
+d1 $ sound "bd"
+```
+
+## Sample Numbers
+
+Page Overview:
+* [Test Link](#test-link)

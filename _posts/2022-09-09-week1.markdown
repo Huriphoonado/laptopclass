@@ -1,0 +1,97 @@
+---
+layout: post
+title:  "Week 1: First Beats in Tidal"
+date:   2022-09-10 18:46:10 -0400
+categories: class update
+comments: false
+---
+
+Page Overview:
+* [Listening](#listening)
+* [Using TidalCycles](#using-tidalcycles)
+* [Making Our First Sounds](#making-our-first-sounds)
+* [Challenges](#challenges)
+
+Welcome to the FMDG Laptop Ensemble! As the semester progress we'll be learning to code music in the language TidalCycles (also called Tidal) and by the end we'll prepare an AlgoRave performance!
+
+## Listening
+This week we listened and discussed two performances. Both were performed live using TidalCycles and both started with completely blank documents meaning lots of improvisation! The first was performed by Alex McLean, the creator of TidalCycles and the latter by two artists writing code in a shared document: Heavy Lifting and Graham Dunning.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Tjf-NJNfOP4?start=6165" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ca3J1cztnrc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Using TidalCycles
+There are a couple main ways to write TidalCycles code: an online editor called Estuary, installing it locally on your device. At the beginning it is okay if you use Estuary, but we'll want to get TidalCycles installed on as many of your machines as possible down the line.
+
+### Estuary
+To use Estuary do the following:
+* In Chrome, go to [https://estuary.mcmaster.ca](https://estuary.mcmaster.ca). You might want to bookmark this url.
+* Click or navigate to "Solo Mode."
+* You'll see a screen with multiple text areas. Go to any of them and select the option above for "MiniTidal."
+
+If you are on an iPad, you'll need to do a couple things to get your code to type correctly:
+* Download Chrome
+* Disable "smart typing" in keyboard settings
+
+### Installing Tidal on a Mac
+To install on a Mac, open a terminal, copy the following script, press enter, and type your login password if prompted:
+```console
+curl https://raw.githubusercontent.com/tidalcycles/tidal-bootstrap/master/tidal-bootstrap.command -sSf | sh
+```
+More instructions found on the [Tidal MacOS Installation page](http://tidalcycles.org/docs/getting-started/macos_install) and [Start Tidal page](http://tidalcycles.org/docs/getting-started/tidal_start). It can be a little complicated so feel free to ask Willie for help at school.
+
+## Making our First Sounds
+To make your first sound in TidalCycles, type the following line and press <kbd>Ctrl</kbd>+<kbd>Enter</kdb> or <kbd>Shift</kbd>+<kbd>Enter</kdb> if you are using Estuary.
+
+```haskell
+d1 $ sound "bd"
+```
+Note that Estuary does not use channels so you do not include the first two things `d1 $`.
+
+This code creates a pattern in which one bass drum sound plays once per cycle. Now try typing multiple bass drums. ("s" means "sound.")
+
+```haskell
+d1 $ s "bd bd bd bd"
+```
+Notice how it sounds faster, how there is less space between bass drum sounds. Musically, we might think about the first line as a whole note and this one as four quarter notes, but because we can type any arbitrary number of things (11 bass drums!), thinking in terms of meter may not always be the best mindset. In Tidal, our cycle is a certain length and anything we stick in there will be squished to fit.
+
+**Important:** Remember that your samples need to always be separated by spaces and written in double quotes! This stuff between quotation marks is called "mininotation" and we will be doing a bunch of exciting things with it as we progress.
+
+### Silence and Rests
+To make the sound stop we have to send a message to the computer.
+* Estuary: Type `silence` and press <kbd>Shift</kbd>+<kbd>Enter</kdb>.
+* Installed: Type `hush` and press <kbd>Ctrl</kbd>+<kbd>Enter</kdb>.
+
+Rests use the tilda sign (located next the 1 on QWERTY keyboards). Try this out:
+
+```haskell
+d1 $ s "bd ~ ~ bd"
+```
+
+### Bracket Notation
+Often times, we want to *subdivide* durations into even smaller durations. For example, eighth notes can be thought of as two subdivisions of a quarter note, sixteenth notes can be thought of as four subdivisions of a quarter note, etc. 
+
+To notate subdivisions in TidalCycles, surround patterns with left and right brackets. In the following cycle, there are two patterns that each take the same duration or one half of the cycle.
+
+```haskell
+d1 $ s "[bd bd] [bd bd bd bd bd]"
+```
+If you are thinking about things in 4/4 time, you might want to ensure you have 4 elements.
+
+```haskell
+d1 $ s "bd [bd bd] [bd bd bd] [bd bd bd bd]"
+```
+
+### Additional Samples
+`bd` stands for bass drum. We also learned `sn` for snare and `hc` for high-hat closed. Try out the following groove that uses all three:
+
+```haskell
+d1 $ s "bd hc hc bd sn hc hc bd"
+```
+As we'll learn next week, `bd` doesn't actually refer to a single sample, it refers to a folder of samples. This is just the first one...
+
+## Challenges
+* Write a groove that sounds like it is in 3/4 time with sixteenth notes.
+* Write a groove that uses embedded 
+* Write a drum pattern that uses all three samples we discussed: `bd`, `hc`, and `sn`. 
