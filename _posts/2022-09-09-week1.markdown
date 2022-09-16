@@ -42,7 +42,7 @@ curl https://raw.githubusercontent.com/tidalcycles/tidal-bootstrap/master/tidal-
 More instructions found on the [Tidal MacOS Installation page](http://tidalcycles.org/docs/getting-started/macos_install) and [Start Tidal page](http://tidalcycles.org/docs/getting-started/tidal_start). It can be a little complicated so feel free to ask Willie for help at school.
 
 ## Making our First Sounds
-To make your first sound in TidalCycles, type the following line and press <kbd>Ctrl</kbd>+<kbd>Enter</kdb> or <kbd>Shift</kbd>+<kbd>Enter</kdb> if you are using Estuary.
+To make your first sound in TidalCycles, type the following line and press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> or <kbd>Shift</kbd> + <kbd>Enter</kbd> if you are using Estuary.
 
 ```haskell
 d1 $ sound "bd"
@@ -60,8 +60,8 @@ Notice how it sounds faster, how there is less space between bass drum sounds. M
 
 ### Silence and Rests
 To make the sound stop we have to send a message to the computer.
-* Estuary: Type `silence` and press <kbd>Shift</kbd>+<kbd>Enter</kdb>.
-* Installed: Type `hush` and press <kbd>Ctrl</kbd>+<kbd>Enter</kdb>.
+* Estuary: Type `silence` and press <kbd>Shift</kbd>+<kbd>Enter</kbd>.
+* Installed: Type `hush` and press <kbd>Ctrl</kbd>+<kbd>Enter</kbd>.
 
 Rests use the tilda sign (located next the 1 on QWERTY keyboards). Try this out:
 
@@ -95,3 +95,6 @@ As we'll learn next week, `bd` doesn't actually refer to a single sample, it ref
 * Write a groove that sounds like it is in 3/4 time with sixteenth notes.
 * Write a groove that uses embedded 
 * Write a drum pattern that uses all three samples we discussed: `bd`, `hc`, and `sn`. 
+
+---
+* [Next Class](/laptopclass/class/update/2022/09/16/week2.html)

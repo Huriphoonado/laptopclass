@@ -4,9 +4,6 @@
 
 layout: home
 ---
-
-In addition to this class, there are many great resources out there. For example:
-* [Alex McLean's Tidal Course](http://tidalcycles.org/docs/patternlib/tutorials/online_course)
-* [AlgoMusic II Using Estuary](https://pdxopen.tech/courses/algomusic-ii-tidalcycles-midi-and-beyond/lessons/getting-started-with-estuary/)
+Welcome to the 2022 FMDG School Electronic Music Ensemble!
 
 ## Weekly Topics

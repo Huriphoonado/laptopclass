@@ -1,17 +1,77 @@
 ---
 layout: post
 title:  "Week 2: More Drums and Rhythms"
-date:   2022-09-16 18:46:10 -0400
+date:   2022-09-16 01:46:10 -0400
 categories: class update
 comments: false
 ---
 
+Page Overview:
+* [Recap](#recap)
+* [Listening](#listening)
+* [New Tidal Notation](#new-tidal-notation)
+* [Challenges](#challenges)
+
+## Recap
+Last week, we learned to make our first sounds by writing mini notation in double quotes, how to play bass drum, hi-hat and snare drum samples, how to write rests with tilde, and how to notate subpatterns using brackets. The following groove uses everything we learned:
 
 ```haskell
-d1 $ sound "bd"
+d1 $ sound "bd [[bd bd] ~] sn [hc hc hc]"
 ```
 
-## Sample Numbers
+## Listening
+This performance by Atsushi Tadokoro is insane. Unlike last week's performances, he has prepared a lot of code in advance and is tweaking parameters of things he's already written. Make sure you listen on to hear some really interesting vocal sample use.
 
-Page Overview:
-* [Test Link](#test-link)
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Tjf-NJNfOP4?start=108" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## New Tidal Notation
+Today, we'll learn some shorthands for repeating patterns and how to expand the variety of drum sounds we can use by referring to specific samples.
+
+### ! and *
+Imagine you wanted to wanted to notate a groove with lots of sixteenth note hi-hats. It would be annoying to type out `hc` sixteen times right? Fortunately there are shorthands in Tidal for notating repeated samples.
+* `!` : replicate a pattern. `"bd!3"` = `"bd bd bd"` 
+* `*` : repeat a pattern as a sub-pattern. `"bd*3"` = `"[bd bd bd]"` 
+
+This distinction may be a little confusing to explain, but listen to the following examples back to back:
+
+```haskell
+d1 $ s "bd!4 hc" -- "bd bd bd bd hc"
+
+d1 $ s "bd*4 hc" -- "[bd bd bd bd] hc"
+```
+
+Note that two dashes `--` indicates a comment or text that is ignored by the computer. We can use comments in our code to describe things to ourselves or to other humans looking at it.
+
+We can also repeat things within brackets. For example:
+
+```haskell
+d1 $ s "[bd hc hc]*2 sn" -- "[bd hc hc bd hc hc] sn"
+
+d1 $ s "[bd hc!2]*2 sn" -- even shorter
+```
+
+As you are probably gathering, there are many ways to write the same thing in Tidal. Some might be more succinct. Some might be easier to read. Don't stress!
+
+### Sample Numbers
+So far we've been thinking of our words as individual samples, but actually they refer to the first sample in a folder. 
+
+By placing a colon after the folder name. So, `bd` by itself is actually the same as `bd:0`. `bd:1` refers to the next sample in the folder. A lot of programming languages are *zero-indexed* meaning we start our count at 0 rather than 1. You can go up to:
+* `bd:23`
+* `sn:51`
+* `hc:5`
+
+Think about different ways to organize these folders. A folder might be a collection of things that sound similar, or one sound played at different amplitudes, or an instrument playing different notes...
+
+## Challenges
+* Notate a groove using the following mini notation
+  * samples: `bd`, `sn`, `hc`
+  * symbols: `!`, `*`
+* Make a groove using hi-tom (`ht`) and lo-tom (`lt`) samples. There are sixteen sounds in each folder so you can go up to:
+  * `ht:15`
+  * `lt:15`
+* Remix the following pattern by filling in the rests with other rhythms and always keeping the snare drum on beat 3: `"bd ~ sn:1 ~"`
+* Pick a song that you like and try to replicate the drum pattern as best you can. Note whether there is anything you couldn't figure out as we might cover it in future weeks.
+
+---
+
+* [Previous Class](/laptopclass/class/update/2022/09/10/week1.html)
