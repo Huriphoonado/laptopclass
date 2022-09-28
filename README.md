@@ -21,3 +21,6 @@ To add a new page, copy an existing page in posts and modify the date.
 * [Jekyll](https://jekyllrb.com)
 * [GitHub Pages](https://pages.github.com)
 * Modified version of the [Minima theme](https://github.com/jekyll/minima)
+
+# Edited by Coco
+just trying out...
