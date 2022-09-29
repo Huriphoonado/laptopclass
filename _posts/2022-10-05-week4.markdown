@@ -1,0 +1,98 @@
+---
+layout: post
+title:  "Week 4: Alternating Patterns"
+date:   2022-10-05 01:46:10 -0400
+categories: class update
+comments: false
+---
+
+Page Overview:
+* [Recap](#recap)
+* [Listening](#listening)
+* [New Tidal Notation](#new-tidal-notation)
+* [Challenges](#challenges)
+
+## Recap
+Last time, we learned about:
+
+```haskell
+d1 $ sound "bd [[bd bd] ~] sn [hc hc hc]"
+```
+
+## Listening
+This performance by Atsushi Tadokoro is insane. Unlike last week's performances, he has prepared a lot of code in advance and is tweaking parameters of things he's already written. Make sure you listen on to hear some really interesting vocal sample use.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Tjf-NJNfOP4?start=108" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## New Tidal Notation
+This week, we'll learn more ways of generating interesting grooves through the division sign and 
+
+### Division (/)
+We have already learned to repeat and replicate patterns using `*` and `!`. Division functions the opposite way. In the following code, the clap sound on count 4 will only play once **every other cycle.** 
+
+```haskell
+d1 $ s "bd!3 clap/2"
+```
+One way of thinking about this is that we have actually created a pattern that is twice as long: One cycle with 3 bass drum sounds and a clap followed by one cycle with 3 bass drum sounds and a rest. Dividing by larger numbers or fractions can result in less repetitive, more unpredictable patterns.
+
+### Euclidean Rhythms
+Here are a bunch of examples of rhythms you can try from the [Tidal Docs.](https://tidalcycles.org/docs/patternlib/tutorials/mini_notation#euclidian-sequences)
+```
+(2,5) : A thirteenth century Persian rhythm called Khafif-e-ramal.
+(3,4) : The archetypal pattern of the Cumbia from Colombia, as well as a Calypso rhythm from Trinidad.
+(3,5,2) : Another thirteenth century Persian rhythm by the name of Khafif-e-ramal, as well as a Rumanian folk-dance rhythm.
+(3,7) : A Ruchenitza rhythm used in a Bulgarian folk-dance.
+(3,8) : The Cuban tresillo pattern.
+(4,7) : Another Ruchenitza Bulgarian folk-dance rhythm.
+(4,9) : The Aksak rhythm of Turkey.
+(4,11) : The metric pattern used by Frank Zappa in his piece titled Outside Now.
+(5,6) : Yields the York-Samai pattern, a popular Arab rhythm.
+(5,7) : The Nawakhat pattern, another popular Arab rhythm.
+(5,8) : The Cuban cinquillo pattern.
+(5,9) : A popular Arab rhythm called Agsag-Samai.
+(5,11) : The metric pattern used by Moussorgsky in Pictures at an Exhibition.
+(5,12) : The Venda clapping pattern of a South African children’s song.
+(5,16) : The Bossa-Nova rhythm necklace of Brazil.
+(7,8) : A typical rhythm played on the Bendir (frame drum).
+(7,12) : A common West African bell pattern.
+(7,16,14) : A Samba rhythm necklace from Brazil.
+(9,16) : A rhythm necklace used in the Central African Republic.
+(11,24,14) : A rhythm necklace of the Aka Pygmies of Central Africa.
+(13,24,5) : Another rhythm necklace of the Aka Pygmies of the upper Sangha.
+```
+
+### Specifying samples with n
+Last week we learned that individaul samples can be specified by writing the folder name, followed by a colon and a number. `bd` is actually the same as `bd:0` and because there are 24 bd samples, we can use up to `bd:23`. 
+
+Another way of referencing a sample is to write our rhythm in a new chunk of code followed by the letter n. The following lines of code are equivalent:
+
+```haskell
+d1 $ s "bd:20 bd:10"
+
+d1 $ n "20 10" # s "bd"
+```
+
+Let's break this second line down:
+1. `d1 $` - Use the channel d1.
+2. `n "20 10"` - the n function takes in sample numbers using the same mini notation as usual meaning we can use replication, brackets, division, everything.
+3. `# s "bd"` - grab samples from the bd folder. It's a bit confusing, but we use the pound sign `#` here to separate these two functions, `s` and `n`. (Technically it maps the right one onto the left.)
+
+This notation is really helpful for using sample folders with a lot of sounds (or pitches). Using the tabla2 sample set, a folder in which lower pitched drums correspond with higher numbers, check out the following code:
+
+```haskell
+d1 $ n "40 [0 2] [4 2 1] [25/2 10/3]" # s "tabla2"
+```
+By the way, `s "tabla2"` is actually mini notation as well - so we can put other folder names and rhythms in here. We'll learn more about this going forward, but the ability to write mini notation in pretty much any function leads to lots of surprising possibilities!
+
+## Challenges
+* Notate a groove using the following mini notation
+  * samples: `bd`, `sn`, `hc`, ``
+  * symbols: `[]`, `/`
+* Make a groove using hi-tom (`ht`) and lo-tom (`lt`) samples. There are sixteen sounds in each folder so you can go up to:
+  * `ht:15`
+  * `lt:15`
+* Remix the following pattern by filling in the rests with other rhythms and always keeping the snare drum on beat 3: `"bd ~ sn:1 ~"`
+
+---
+
+* [Previous Class](/laptopclass/class/update/2022/09/16/week2.html)

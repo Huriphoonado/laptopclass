@@ -1,0 +1,96 @@
+---
+layout: post
+title:  "Week 3: Euclidean Rhythms"
+date:   2022-09-28 01:46:10 -0400
+categories: class update
+comments: false
+---
+
+Page Overview:
+* [Recap](#recap)
+* [Listening](#listening)
+* [New Tidal Notation](#new-tidal-notation)
+  * [Division](#division)
+  * [Euclidean Rhythms](#euclidean-rhythms)
+  * [Samples With n](#specifying-samples-with-n)
+* [Challenges](#challenges)
+
+## Recap
+Last time, we learned about replicating patterns and triggering specific samples. The following code demonstrates everything we've learned to date using the `hc` or hihat closed sample folder.
+
+```haskell
+d1 $ s "hc*3 hc:2!2 [hc:1 hc:4]*2"
+```
+
+## Listening
+Within it's opening minutes, this performance by Heavy Lifting and Graham Dunning uses many concepts we've learned and will cover today. It begins with two Euclidean Rhythms! First `(7, 16)` and soon after `(3, 8)`. Notice the triplets made with `*3` and notes that play every other cycle with `/2`. As these collaborators work in the same editor, one starts with channel `d1` and counts up while the other starts at `d9` and counts down.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ezSdPIKkp98" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## New Tidal Notation
+This week, we'll learn more ways of generating interesting grooves through the division sign and Euclidean rhythms, and we'll learn a shorter way of choosing sounds with the n function.
+
+### Division (/)
+We have already learned to repeat and replicate patterns using `*` and `!`. Division behaves the opposite way by playing samples less often. In the following code, the clap sound on count 4 will only play once **every other cycle.** 
+
+```haskell
+d1 $ s "bd!3 clap/2"
+```
+One way of thinking about this is that we have actually created a pattern that is twice as long: One cycle with 3 bass drum sounds and a clap followed by one cycle with 3 bass drum sounds and a rest. Dividing by larger numbers or fractions can result in less repetitive, more unpredictable patterns.
+
+### Euclidean Rhythms
+Euclidean rhythms use only two numbers to generate many grooves from around the world. Directly following a sample, write two comma-separated numbers. Those two numbers represent:
+* How many onsets or sounds to play.
+* How many total spaces to fit those onsets.
+
+For example:
+
+```haskell
+d1 $ "bd(3, 8)"
+```
+
+This says fit three bass drum sounds over eight spaces. I would think of this as an eighth note pattern with bass drum sounds on 1, the and of 2, and 4.
+
+Mathematically, this algorithm finds the greatest common divisor of the two numbers resulting in onsets that are as equidistant as possible. For us, the important thing is that they generate grooves that sound good with very little code.
+
+### Specifying samples with n
+Last week we learned that individaul samples can be specified by writing the folder name, followed by a colon and a number. `bd` is actually the same as `bd:0` and because there are 24 bd samples, we can use up to `bd:23`. 
+
+Another way of referencing a sample is to write our rhythm in a new chunk of code followed by the letter n. The following lines of code are equivalent:
+
+```haskell
+d1 $ s "bd:20 bd:10"
+
+d1 $ n "20 10" # s "bd"
+```
+
+Let's break this second line down:
+1. `d1 $` - Use the channel d1.
+2. `n "20 10"` - the n function takes in sample numbers using the same mini notation as usual meaning we can use replication, brackets, division, everything.
+3. `# s "bd"` - grab samples from the bd folder. It's a bit confusing, but we use the pound sign `#` here to separate these two functions, `s` and `n`. (Technically it maps the right one onto the left.)
+
+This notation is really helpful for using sample folders with a lot of sounds (or pitches). Using the `tabla2` sample set, a folder in which lower pitched drums correspond with higher numbers, check out the following code:
+
+```haskell
+d1 $ n "40 [0 2] [4 2 1] [25/2 10/3]" # s "tabla2"
+```
+By the way, `s "tabla2"` is actually mini notation as well - so we can put other folder names and rhythms in here. We'll learn more about this going forward, but the ability to write mini notation in pretty much any function leads to lots of surprising possibilities!
+
+## Challenges
+1. Notate a groove using the following mini notation
+    * samples: `bd`, `sn`, `hc`, `ho`
+    * symbols: `[]`, `/`
+
+2. Experiment with Euclidean rhythms starting with the following code. How many total spaces are there for notes and rests? First, only change the number of onsets in each rhythm (i.e. change a 1 to a 3). Then feel free to adjust the number of rests and improvise from there.
+```haskell
+d1 $ "bd(1, 8) bd(1, 8)"
+```
+
+3. Make a groove using n notation and the `808` sample pack which has six unique drum sounds. The following code can help you get started.
+```haskell
+d1 $ n "5 4 3 2" # s "808"
+```
+
+---
+
+* [Previous Class](/laptopclass/class/update/2022/09/16/week2.html)
