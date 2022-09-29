@@ -75,3 +75,4 @@ Think about different ways to organize these folders. A folder might be a collec
 ---
 
 * [Previous Class](/laptopclass/class/update/2022/09/10/week1.html)
+* [Next Class](laptopclass/class/update/2022/09/28/week3.html)
