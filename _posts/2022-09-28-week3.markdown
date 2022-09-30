@@ -10,7 +10,7 @@ Page Overview:
 * [Recap](#recap)
 * [Listening](#listening)
 * [New Tidal Notation](#new-tidal-notation)
-  * [Division](#division)
+  * [Division](#division-)
   * [Euclidean Rhythms](#euclidean-rhythms)
   * [Samples With n](#specifying-samples-with-n)
 * [Challenges](#challenges)
