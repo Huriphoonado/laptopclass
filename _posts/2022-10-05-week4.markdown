@@ -54,9 +54,9 @@ By the way, going forward I'll mix and match using `n` and and `s` functions for
 Last week we learned that Euclidean Rhythms in which some number of onsets are equally dispersed within some number of gaps. A great way of thinking about Euclidean rhythms is as shapes that fit around a circle. A groove with three onsets is a triangle, four is a quadrilateral, etc. An optional third comma-separated argument describes a rotation of that shape. In the following pattern, the bass drum rhythm has been shifted once over to the left resulting in hits on 2, the and of 3, the and of 4.
 
 ```haskell
-d1 $ s "bd(3, 8, 0)" // |..|..|.
+d1 $ s "bd(3, 8, 0)" -- |..|..|.
 
-d2 $ s "bd(3, 8, 1)" // ..|..|.|
+d2 $ s "bd(3, 8, 1)" -- ..|..|.|
 ```
 
 It turns out that many rhythms from around the world are Euclidean. Try out some examples below copied from the [Tidal Docs.](https://tidalcycles.org/docs/patternlib/tutorials/mini_notation#euclidian-sequences)
