@@ -94,3 +94,4 @@ d1 $ n "5 4 3 2" # s "808"
 ---
 
 * [Previous Class](/laptopclass/class/update/2022/09/16/week2.html)
+* [Next Class](/laptopclass/class/update/2022/10/05/week4.html)

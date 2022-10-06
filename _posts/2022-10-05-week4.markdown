@@ -10,6 +10,9 @@ Page Overview:
 * [Recap](#recap)
 * [Listening](#listening)
 * [New Tidal Notation](#new-tidal-notation)
+   * [Alternating Patterns](#alternating-patterns-)
+   * [Euclidean Rhythms Part 2](#euclidean-rhythms-part-2)
+   * [Effects With 0–1 Ranges](#effects-with-01-ranges)
 * [Challenges](#challenges)
 
 ## Recap
@@ -22,6 +25,9 @@ d1 $ n "1(3, 8) [2 3]/2" # s "808"
 By dividing the pattern in square brackets by 2, the second and third samples alternate each cycle! Our first topic today shows an alternative method of accomplishing this.
 
 ## Listening
+I like how much space there is in the drum pattern at the beginning. You can hear it gradually get built up.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nmjmmDvLkT0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## New Tidal Notation
 This week, we'll extend our ability to create dynamic grooves with very succinct code, and we'll finally get started applying effects!
@@ -45,7 +51,13 @@ d1 $ n "0*3 <0!3 2>" # s "sn"
 By the way, going forward I'll mix and match using `n` and and `s` functions for writing patterns. Choosing which to use tends to depend on the samples and groove you are writing.
 
 ### Euclidean Rhythms Part 2
-Last week we learned that Euclidean Rhythms in which some number of onsets are equally dispersed within some number of gaps. A great way of thinking about Euclidean rhythms is as shapes that fit around a circle. A groove with three onsets is a triangle, four is a quadrilateral, etc. An optional third comma-separated argument describes a rotation
+Last week we learned that Euclidean Rhythms in which some number of onsets are equally dispersed within some number of gaps. A great way of thinking about Euclidean rhythms is as shapes that fit around a circle. A groove with three onsets is a triangle, four is a quadrilateral, etc. An optional third comma-separated argument describes a rotation of that shape. In the following pattern, the bass drum rhythm has been shifted once over to the left resulting in hits on 2, the and of 3, the and of 4.
+
+```haskell
+d1 $ s "bd(3, 8, 0)" // |..|..|.
+
+d2 $ s "bd(3, 8, 1)" // ..|..|.|
+```
 
 It turns out that many rhythms from around the world are Euclidean. Try out some examples below copied from the [Tidal Docs.](https://tidalcycles.org/docs/patternlib/tutorials/mini_notation#euclidian-sequences)
 ```
@@ -109,9 +121,26 @@ d1 $ s "hc(11, 16, <0 4>)"
    # room "0.8 0!15"
 ```
 
-
 ## Challenges
-TBD
+* Create a groove with multiple channels that are panned in different locations. Here is a starter template with a simple drumbeat:
+
+```haskell
+d1 $ n "0" # s "bd"
+
+d2 $ n "0*8" # s "hc" # pan 0.3 # gain 0.8
+
+d3 $ n "~ 2" # s "sn" # pan 0.8
+```
+
+* Experiment with overlapping 808 pitched drums using Euclidean rhythms and alterating patterns. Different sample numbers contain different pitches.
+
+```haskell
+d1 $ n "0(3, 8)" # s "808lt"
+
+d2 $ n "0(5, 8, 1)" # s "808mt" # pan "0.3"
+
+d3 $ n "0(5, 16, <0 2>)" # s "808ht" # pan "0.6"
+```
 
 ---
 
