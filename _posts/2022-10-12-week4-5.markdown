@@ -1,0 +1,75 @@
+---
+layout: post
+title:  "Week 4.5: Euclidean Ensemble"
+date:   2022-10-12 01:46:10 -0400
+categories: class update
+comments: false
+---
+
+## Instructions
+The way this piece works is quite simple: Once you hear a change in the drum pattern, you are allowed to edit more numbers in your Euclidean pattern. Use angle brackets, `< >` at will!
+
+1. Gradually, activate your parts.
+2. Bass drum on one: change pitch.
+3. Four on the floor: change rotation.
+4. Hi-hats: change pulses.
+5. Snare: change subdivisions from 8 to 16 and increase other values accordingly.
+6. Drums cut out: gradually silence your parts.
+
+## Code
+Copy the following code into a collaborative editor. The "conductor" gets to edit the drum pattern while all the musicians. Make sure to activate the parts first using the code on the bottom, and feel free to change the names to match your ensemble.
+
+```haskell
+m1 $ n "0(3, 8, 0)" # s "arpy"
+
+m1 silence
+
+m2 $ n "2(3, 8, 0)" # s "arpy"
+
+m2 silence
+
+m3 $ n "3(3, 8, 0)" # s "arpy"
+
+m3 silence
+
+m4 $ n "4(3, 8, 0)" # s "arpy"
+
+m4 silence
+
+m5 $ n "6(3, 8, 0)" # s "arpy"
+
+m5 silence
+
+m6 $ n "0(3, 8, 0)" # s "arpy"
+
+m6 silence
+
+-------- conductor
+
+d10 $ s "bd" -- "bd*4
+    # room 0.2
+
+d11 $ n (fast 4 ("~ <[[0|0|0|1|2|3]]!7 [0 2]>")) # s "hc" # gain 0.8 # pan 0.4
+
+d12 $ s "~ sn:2 ~ sn:2" # room 0.1 # pan 0.6
+
+d10 silence
+
+d11 silence
+
+d12 silence
+
+-- start here
+m1 = p 1 . (# pan 0) . (# room 0.2) . (# crush (fast 8 ("[6|6|6|4|3|3|2]")))
+m2 = p 2 . (# pan 0.2) . (# room 0.2) . (# vowel (choose ["a", "e", "i", "o", "u"]))
+m3 = p 3 . (# pan 0.4) . (# room 0.2) . (# bpf (range 1000 3000 rand)) . (# bpq 2.5)
+m4 = p 4 . (# pan 0.6) . (# room 0.2) . (# triode 3) . (# leslie 0.8) . (# lrate 0.2) . (# gain 0.95)
+m5 = p 5 . (# pan 0.8) . (# room 0.2) . (# squiz (slow 5 (range 2 10 sine))) . (# gain 0.95)
+m6 = p 6 . (# pan 1) . (# room 0.2) . (# lpf (slow 6 (range 400 1000 sine)))
+
+```
+
+---
+
+* [Previous Class](/laptopclass/class/update/2022/10/05/week4.html)
+* [Next Class](/laptopclass/class/update/2022/10/19/week5.html)

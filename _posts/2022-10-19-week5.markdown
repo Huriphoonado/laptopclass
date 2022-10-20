@@ -1,0 +1,139 @@
+---
+layout: post
+title:  "Week 5: Patterning"
+date:   2022-10-19 01:46:10 -0400
+categories: class update
+comments: false
+---
+
+Page Overview:
+* [Recap](#recap)
+* [Listening](#listening)
+* [New Tidal Notation](#new-tidal-notation)
+   * [Patterning Beyond The Rhythm](#patterning)
+   * [Cycle Length: Fast and Slow](#cycle-length-fast-and-slow)
+   * [Changing Tempo](#changing-tempo)
+* [Challenges](#challenges)
+
+## Recap
+Last time, we learned how to add effects, play patterns in alternating samples using angle brackets, and rotate our Euclidean rhythms. Here is one of your lines from the collaborative composition we performed.
+
+```haskell
+d1 $ n "<0 5 4 10>(<10 9 11 12 16>, 16, <2 10 3 1 4 7>)" # s "arpy"
+```
+
+Because each group of numbers inside of the angle brackets is a different length, this pattern is very dynamic and will take many, many cycles (4 * 5 * 6) before we hear the same thing.
+
+## Listening
+Listen to each of these different layers - the high pitch synth, the drums, the lower synth - their lengths and how often they change (or not). While this was not programmed in TidalCycles, you might imagine how it could be.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qqI5-2G-x4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## New Tidal Notation
+We've hinted at it in past weeks, but today we will learn that mini notation can be written all over the place not just in the leftmost pattern, and we will learn how to shrink and expand the length of our cycles using `fast` and `slow` functions.
+
+### Patterning
+The following code should look pretty familiar. First we write a rhythm in mini notation, then indicate the sample folder to pull from, and finally add an effect like `gain` or volume.
+
+```haskell
+d1 $ n "0!2 1 0!2 2 0 ~" # s "hc" # gain 0.8
+```
+It turns out that pretty much all TidalCycles functions that accept values, also accept mini notation. For example, if we wanted to accent the non-zero hi-hat samples, we could add larger gain values on counts 2 and the and of 3.
+
+```haskell
+d1 $ n "0!2 1 0!2 2 0 ~" # s "hc" 
+   # gain "0.8!2 1.1 0.8!2 1.1 0.8!2"
+```
+
+**Important: Make sure you use double quotation marks.** These enclose all mini notation. Without them you'll get an error and your code won't run.
+
+The `sound` or `s` function also can take in mini notation. For example, the following code changes the last hit to be an open hi-hat:
+
+```haskell
+d1 $ n "0!2 1 0!2 2 0 ~" 
+   # s "hc!3 ho" 
+   # gain "0.8!2 1.1 0.8!2 1.1 0.8!2"
+```
+
+And of course all the mini notation we've learned so far, including euclidean rhythms and angle brackets can be notated anywere. Here I add angle brackets in a couple places to make this groove a little more dynamic while maintaining the accent pattern:
+
+```haskell
+d1 $ n "0!2 <1 3> 0!2 2 <0!2 3> ~"
+   # s "hc!3 <ho hc>" 
+   # gain "0.8!2 1.1 0.8!2 1.1 0.8!2"
+```
+
+One question you may have is why we are still hearing only one rhythm even though we've written a bunch of mini notation. For example, the second line written as `d1 $ s "hc!3 <ho hc>"` is a different and simpler pattern. In TidalCycles, the **leftmost** pattern determines the rhythm. All other patterns separated by `#` adhere to it. Try swapping the first and second lines and adjusting the `$` and `#` syntax accordingly:
+
+```haskell
+d1 $ s "hc!3 <ho hc>" 
+   # n "0!2 <1 3> 0!2 2 <0!2 3> ~"
+   # gain "0.8!2 1.1 0.8!2 1.1 0.8!2"
+```
+
+Notice how now you only hear quarter notes, but the accent on beat 2 still applies and the sample numbers still change. As each sound plays in the first pattern, TidalCycles looks to the corresponding location in other patterns and pulls out the most recent value.
+
+### Cycle Length: Fast and Slow
+So far, we've been sticking to the confines of fitting our patterns in one cycle. Check out the following groove using the `dr` sample pack containing 42 (0–41) drum sounds.
+
+```haskell
+d1 $ n "2 5 8 [3 4]" # s "dr"
+```
+
+#### Fast
+We can speed this up by including the `fast` function and a rate of increase before our mini notation. The following code doubles the speed of our pattern or squishes it to fit twice in one cycle depending on how you think of it.
+
+```haskell
+d1 $ n (fast "2" "2 5 8 [3 4]") # s "dr"
+```
+
+Notice those extra parentheses surrounding the fast function and the pattern: These are necessary to tell TidalCycles that everything inside should be taken into account. Remembering/recognizing when you need these is not always easy, but with more practice you'll get used to it!
+
+#### Slow
+We can also slow this function down to make it half as fast using the slow function (equivelent to `fast 0.5`). 
+
+```haskell
+d1 $ n (slow "2" "2 5 8 [3 4]") # s "dr"
+```
+
+The slow function can be used to compose longer patterns. For example the template `slow 4 "[] [] [] []"` effectively gives you four cycles to compose within each set of brackts, which we might concieve of as four measures.
+
+#### Negative Numbers
+You can also use negative values to iterate through a cycle in reverse. (This won't play the sounds backwards, but will move from right to left inside the pattern.) 
+
+```haskell
+d1 $ n (fast "-2" "2 5 8 [3 4]") # s "dr"
+```
+
+If you use negative numbers anywhere in TidalCycles make sure they are enclosed in quotation marks or you will get an error. (It's a weird functional programming thing.)
+
+#### Patterning in Fast and Slow!
+Finally, the first argument written after `fast` or `slow` can be patterned for some awesome meta drum beats.
+
+```haskell
+d1 $ n (fast "<1 [1 2 -2 1]>" "2 5 8 [3 4]") # s "dr"
+```
+
+Here is where experimentation is key. You never quite know how things will turn out, but what's the worst that will happen? A general rule of thumb is that if you are keeping in a simple meter like 4/4, stick to multiples of 2 for both numbers and pattern lengths.
+
+### Changing Tempo
+Phew! That was a lot, so we'll end on a light note and finally learn how to change tempo. In TidalCycles, everything revolves around cycles: Tempo is determined by cycles per second or cps. I find this a bit unintuitive given that in pop and classical we often refer to tempo by the beats or quarter notes per minute. A handy trick is to convert bpm to cps is to type your bpm, then divide by 60 (seconds in a minute) and then divide by 4 (quarter notes in a measure).
+
+Run the following beat and then change the tempo using the `setcps` functions to hear it change.
+
+```haskell
+d1 $ fast 4 "bd"
+
+setcps(120/60/4) -- allegro
+
+setcps(60/60/4)  -- adagio
+
+setcps(190/60/4) -- prestissimo
+```
+
+## Challenges
+TBD!
+
+---
+
+* [Previous Class](/laptopclass/class/update/2022/10/12/week4-5.html)
